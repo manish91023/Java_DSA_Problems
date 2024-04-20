@@ -9,6 +9,10 @@ public class DoubleLL {
         ll.addFirst(16);
         ll.addFirst(18);
         System.out.println(size);
+        ll.printLL(head);
+       // System.out.println(ll.removeFirst());
+        ll.reverseLL();
+        ll.printLL(head);
 
     }
     static class Node {
@@ -36,9 +40,53 @@ public class DoubleLL {
             return;
         }
         newNode.next=head;
-        head.next=newNode;
+        head.prev=newNode;
         head=newNode;
     }
     //print ke liye
-    
+    public void printLL(Node head){
+        Node temp=head;
+        System.out.print("null<-");
+        while (temp!=null) {
+            System.out.print(temp.data+"<->");
+            temp=temp.next;
+        }
+        System.out.println("null");
+    }
+    //remove element
+    public int removeFirst(){
+        int val;
+        if(head==null){
+            System.out.println("linked list is empty");
+            return Integer.MIN_VALUE;
+        }
+        if(size==1){
+            val=head.data;
+            size--;
+            head=tail=null;
+            return val;
+            
+        }
+        val=head.data;
+        head=head.next;
+        head.prev=null;
+        size--;
+        return val;
+    }
+
+    //reverse  the linked list 
+    void reverseLL(){
+        Node curr=head;
+        Node prev=null;
+        Node next;
+        while (curr!=null) {
+            next=curr.next;
+            curr.next=prev;
+            curr.prev=next;
+
+            prev=curr;
+            curr=next;
+        }
+        head=prev;
+    }
 }
